@@ -13,10 +13,17 @@ export default class World
         //Wait for the resources
         this.resources.on('ready',() =>
         {
-            //Environment
             this.djBooth = new DjBooth()
             this.environment = new Environment()
         })
 
+    }
+
+    update()
+    {
+        if(this.djBooth)
+        {
+            this.djBooth.update()
+        }
     }
 }

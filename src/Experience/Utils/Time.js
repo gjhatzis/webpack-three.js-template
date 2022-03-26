@@ -1,5 +1,4 @@
 import EventEmitter from "./EventEmitter.js";
-import Experience from "../Experience.js";
 
 export default class Time extends EventEmitter
 {
