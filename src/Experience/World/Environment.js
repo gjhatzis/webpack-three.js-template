@@ -8,23 +8,33 @@ export default class Environment
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
+        this.debug = this.experience.debug
 
         //Adds lights to the scene
-        this.setSunLight()
+        this.setDirectionalLight()
 
         //Adds environment map to the scene
         this.setEnvironmentMap()
     }
 
-    setSunLight()
+    setDirectionalLight()
     {
-        this.sunLight = new THREE.DirectionalLight('#ffffff', 4)
-        this.sunLight.castShadow = true
-        this.sunLight.shadow.camera.far = 15
-        this.sunLight.shadow.mapSize.set(1024, 1024)
-        this.sunLight.shadow.normalBias = 0.05
-        this.sunLight.position.set(3, 3, -2.25)
-        this.scene.add(this.sunLight)
+        this.DirectionalLight = new THREE.DirectionalLight('#ffffff', 4)
+        this.DirectionalLight.castShadow = true
+        this.DirectionalLight.shadow.camera.far = 15
+        this.DirectionalLight.shadow.mapSize.set(1024, 1024)
+        this.DirectionalLight.shadow.normalBias = 0.05
+        this.DirectionalLight.position.set(3, 3, -2.25)
+        this.scene.add(this.DirectionalLight)
+
+        if(this.debug.active)
+        {
+            this.debugLightFolder = this.debug.gui.addFolder('DirLight')
+            this.debugLightFolder.add(this.DirectionalLight.position, 'x').min(-5).max(5).step(0.001)
+            this.debugLightFolder.add(this.DirectionalLight.position, 'y').min(-5).max(5).step(0.001)
+            this.debugLightFolder.add(this.DirectionalLight.position, 'z').min(-5).max(5).step(0.001)
+            
+        }
     }
 
     setEnvironmentMap()
@@ -37,7 +47,7 @@ export default class Environment
         this.scene.background = this.environmentMap.texture
         this.scene.environment = this.environmentMap.texture
 
-        this.setEnvironmentMap.updateMaterial = () => 
+        this.environmentMap.updateMaterial = () => 
         {
             this.scene.traverse((child) => 
             {
@@ -50,6 +60,12 @@ export default class Environment
             })
         }
 
-        this.setEnvironmentMap.updateMaterial()
+        this.environmentMap.updateMaterial()
+
+        if(this.debug.active)
+        {
+            this.debugEnvFolder = this.debug.gui.addFolder('EnvMap')
+            this.debugEnvFolder.add(this.environmentMap, 'intensity').min(0).max(4).step(0.001).onChange(this.environmentMap.updateMaterial)
+        }
     }
 }
