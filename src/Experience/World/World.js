@@ -1,4 +1,3 @@
-import * as THREE from 'three'
 import Experience from "../Experience.js";
 import DjBooth from './DjBooth.js';
 import Environment from './Environment.js';

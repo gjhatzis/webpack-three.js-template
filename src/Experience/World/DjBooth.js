@@ -1,5 +1,4 @@
 import * as THREE from  'three'
-import { DoubleSide } from 'three'
 import Experience from "../Experience.js"
 
 export default class DjBooth
@@ -12,15 +11,23 @@ export default class DjBooth
         this.resources = this.experience.resources
 
         this.setModel()
-      
     }
 
     setModel()
     {
-        //Model
-        this.djBooth = this.resources.items.test_model.scene
-        
+        //Manipulate Model
+        this.resource = this.resources.items.test_model
+        this.model = this.resource.scene
+        this.model.scale.set(60, 60, 60)
 
+        this.model.traverse((child) => 
+        {
+            if(child instanceof THREE.Mesh)
+            {
+                child.castShadow = true
+            }
+        })
+        
         //Add texture
         this.texture = {}
         this.texture.color = this.resources.items.color_texture
@@ -30,13 +37,9 @@ export default class DjBooth
         this.texture.color.wrapT = THREE.RepeatWrapping
 
         //Manipulate Material
-        this.djBooth.children[0].children[0].material.side = THREE.DoubleSide
-
-        //Manipulate Model
-        this.djBooth.scale.set(60, 60, 60)
+        this.model.children[0].children[0].material.side = THREE.DoubleSide
 
         //Add model to the scene
-        this.scene.add(this.djBooth)
+        this.scene.add(this.model)
     }
-
 }
