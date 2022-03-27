@@ -36,7 +36,7 @@ module.exports = {
 
             // Images
             {
-                test: /\.(jpg|png|gif|svg)$/,
+                test: /\.(jpg|png|gif|svg|ktx)$/,
                 type: 'asset/resource',
             },
             
@@ -65,6 +65,14 @@ module.exports = {
              // Sounds
              {
                 test: /\.mp3$/,
+                exclude: /node_modules/,
+                use: [
+                    'raw-loader'
+                ]
+            },
+            // Videos
+            {
+                test: /\.mp4$/,
                 exclude: /node_modules/,
                 use: [
                     'raw-loader'

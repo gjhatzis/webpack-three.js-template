@@ -25,6 +25,9 @@ export default class Materials
                 color: new THREE.Color(),
                 map: this.resources.items.color_texture
             })
+
+        this.envMapTexture = this.resources.items.environmentMapTexture
+
         this.resources.trigger('texturesMapped')
     }
 }

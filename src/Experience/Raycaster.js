@@ -16,14 +16,18 @@ export default class Raycaster
 
         this.resources.on('ready', ()=>
         {
-            this.poster1 = this.experience.world.plane.model
+            this.poster1test = this.experience.world.plane.model
+            this.poster1 = this.experience.world.djBooth.poster1
+            this.backBtn = this.experience.world.plane.model3
 
             this.raycaster = new THREE.Raycaster()
             this.cursor = new THREE.Vector2()
 
             //Objects to test if intersecting
             this.obgjectsToTest = [
-                this.poster1
+                this.poster1test,
+                this.poster1,
+                this.backBtn
             ]
 
             window.addEventListener('click', (event)=>
@@ -45,11 +49,11 @@ export default class Raycaster
             this.selectedModel = this.inteserctsObjects[0].object
             switch(this.selectedModel)
             {
-                case this.poster1: 
+                case this.poster1test: 
                     gsap.to(this.camera.position, {
                         duration: 2,
                         ease: 'power1.inOut',
-                        x: 0,
+                        x: -1,
                         y: 4,
                         z: 0
                     })
@@ -78,6 +82,42 @@ export default class Raycaster
                     this.controls.minPolarAngle = Math.PI * .2 // up
                     this.controls.maxPolarAngle = Math.PI * .4 //down
                     
+                break
+
+                case this.poster1: 
+                    gsap.to(this.camera.position, {
+                        duration: 2,
+                        ease: 'power1.inOut',
+                        x: 0,
+                        y: 3.5,
+                        z: -9
+                    })
+
+                    gsap.to(this.controls.target, {
+                        duration: 2,
+                        ease: 'power1.inOut',
+                        x: 0,
+                        y: 3,
+                        z: -7
+                    })
+                break
+
+                case this.backBtn: 
+                    gsap.to(this.camera.position, {
+                        duration: 2,
+                        ease: 'power1.inOut',
+                        x: 0,
+                        y: 4,
+                        z: 17
+                    })
+
+                    gsap.to(this.controls.target, {
+                        duration: 2,
+                        ease: 'power1.inOut',
+                        x: 0,
+                        y: 0,
+                        z: 0
+                    })
                 break
             }
         }

@@ -9,6 +9,7 @@ export default class Environment
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.debug = this.experience.debug
+        this.materials = this.experience.materials
 
         //Adds lights to the scene
         this.setDirectionalLight()
@@ -39,33 +40,37 @@ export default class Environment
 
     setEnvironmentMap()
     {
-        this.environmentMap = {}
-        this.environmentMap.texture = this.resources.items.environmentMapTexture
-        this.environmentMap.intensity = 0.4
-        this.environmentMap.texture.encoding = THREE.sRGBEncoding
 
-        this.scene.background = this.environmentMap.texture
-        this.scene.environment = this.environmentMap.texture
-
-        this.environmentMap.updateMaterial = () => 
+        this.resources.on('texturesMapped', ()=>
         {
-            this.scene.traverse((child) => 
+            this.environmentMap = {}
+            this.environmentMap.texture = this.materials.envMapTexture
+            this.environmentMap.intensity = 0.4
+            this.environmentMap.texture.encoding = THREE.sRGBEncoding
+    
+            this.scene.background = this.environmentMap.texture
+            this.scene.environment = this.environmentMap.texture
+
+            this.environmentMap.updateMaterial = () => 
             {
-                if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
+                this.scene.traverse((child) => 
                 {
-                    child.material.envMap = this.environmentMap.texture
-                    child.material.envMapIntensity = this.environmentMap.intensity
-                    child.material.needsUpdate = true
-                }
-            })
-        }
-
-        this.environmentMap.updateMaterial()
-
-        if(this.debug.active)
-        {
-            this.debugEnvFolder = this.debug.gui.addFolder('EnvMap')
-            this.debugEnvFolder.add(this.environmentMap, 'intensity').min(0).max(4).step(0.001).onChange(this.environmentMap.updateMaterial)
-        }
+                    if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
+                    {
+                        child.material.envMap = this.environmentMap.texture
+                        child.material.envMapIntensity = this.environmentMap.intensity
+                        child.material.needsUpdate = true
+                    }
+                })
+            }
+    
+            this.environmentMap.updateMaterial()
+    
+            if(this.debug.active)
+            {
+                this.debugEnvFolder = this.debug.gui.addFolder('EnvMap')
+                this.debugEnvFolder.add(this.environmentMap, 'intensity').min(0).max(4).step(0.001).onChange(this.environmentMap.updateMaterial)
+            }
+        })
     }
 }

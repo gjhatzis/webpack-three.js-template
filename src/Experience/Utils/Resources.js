@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import Experience from '../Experience.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { BasisTextureLoader } from 'three/examples/jsm/loaders/BasisTextureLoader.js'
+// import { BasisTextureLoader } from 'three/examples/jsm/loaders/BasisTextureLoader.js'
 import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
 import EventEmitter from "./EventEmitter";
 
@@ -47,9 +47,9 @@ export default class Resources extends EventEmitter
         this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader()
 
         //Basis Texture Loader
-        this.loaders.basisTextureLoader = new KTX2Loader()
-        this.loaders.basisTextureLoader.setTranscoderPath('/basis/')
-        this.loaders.basisTextureLoader.detectSupport( this.renderer )
+        this.loaders.KTX2Loader = new KTX2Loader()
+        this.loaders.KTX2Loader.setTranscoderPath('/basis/')
+        this.loaders.KTX2Loader.detectSupport( this.renderer )
     }
 
     startLoading()
@@ -66,9 +66,9 @@ export default class Resources extends EventEmitter
                     }
                 )
             }
-            else if(source.type === 'basisTexture')
+            else if(source.type === 'KTX2Texture')
             {
-                this.loaders.basisTextureLoader.load(
+                this.loaders.KTX2Loader.load(
                     source.path,
                     (file) =>
                     {

@@ -14,6 +14,20 @@ export default [
         path: 'textures/mixcloud.jpg'
     },
 
+    {
+        name: 'back_texture',
+        type: 'texture',
+        path: 'textures/back.png'
+    },
+
+    //KTX Textures
+    // {
+    //     name: 'color_texture',
+    //     type: 'KTX2Texture',
+    //     path: 'textures/example.ktx2'
+    // },
+
+
     //Cube Texture
     {
         name: 'environmentMapTexture',
