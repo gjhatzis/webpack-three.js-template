@@ -58,7 +58,7 @@ export default class Plane {
             this.testFolder.add(this.model2.rotation, 'y').min(-20).max(20).step(0.001)
             this.testFolder.add(this.model2.rotation, 'z').min(-20).max(20).step(0.001)
         }
-        this.scene.add(this.model, this.model2, this.model3)
+        this.scene.add( this.model2, this.model3)
         console.log(this.model)
     }
 }
