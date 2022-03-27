@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import Camera from './Camera.js'
+import PreLoader from './Preloader.js'
 import Raycaster from './Raycaster.js'
 import Renderer from './Renderer.js'
 import sources from './sources.js'
@@ -40,6 +41,7 @@ export default class Experience
 
         this.renderer = new Renderer()
         this.resources = new Resources(sources)
+        this.preloader = new PreLoader()
 
         this.world = new World()
         this.materials = new Materials()

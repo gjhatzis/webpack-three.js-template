@@ -1,4 +1,5 @@
 import * as THREE from  'three'
+import { Vertex } from 'three'
 import Experience from "../Experience.js"
 
 export default class DjBooth
@@ -36,7 +37,14 @@ export default class DjBooth
 
         //Objects
         this.poster1 = this.model.children[0].children[0].children[8]
-        console.log(this.model.children[0].children[0].children[8])
+        this.room = this.model.children[0].children[0].children[1]
+
+        this.lamp1Color = '#FF10F0'
+        
+        this.lamp1 = this.model.children[0].children[0].children[5]
+        this.lamp1.material.emissive = new THREE.Color(this.lamp1Color)
+
+        console.log(this.lamp1.material)
         
         //Debug
         if(this.debug.active)
@@ -44,7 +52,6 @@ export default class DjBooth
             this.debugFolder = this.debug.gui.addFolder('Booth')
             this.debugFolder.add(this.model.rotation,'y').min(-5).max(5).step(0.001)
         }
-
     }
 
     setMaterial()

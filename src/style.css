@@ -9,3 +9,277 @@ body
 {
     overflow: hidden;
 }
+
+.webgl{
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+    z-index: -1;
+}
+
+.overlay{
+    background-color:rgb(0, 0, 0);
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    pointer-events: none;
+    opacity: 1;
+}
+
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: calc(10vh);
+}
+
+.logo-desktop{
+    height: 500px;
+    width: 500px;
+}
+
+.logo-mobile{
+    display: none;
+}
+
+.loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+h1{
+    color: white;
+}
+
+ .loading-bar{
+    color: white;
+    font-family: 'Amatic SC';
+    font-size: 3rem;
+    opacity: 1;
+}
+
+.lds-ellipsis {
+    display: block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.lds-ellipsis div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #fff;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+    }
+
+    .lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+    }
+
+    .lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+    }
+
+    .lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+    }
+
+    .lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+    }
+
+  @keyframes lds-ellipsis1 {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes lds-ellipsis3 {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  @keyframes lds-ellipsis2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(24px, 0);
+    }
+}
+
+.welcome-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    margin-top: calc(60vh)
+}
+
+.enter-btn{
+    color: white;
+    font-family: 'Amatic SC';
+    font-size: 4rem;
+    animation: pulse 2.5s  infinite;
+    background-color: transparent;
+    border: none;
+}
+
+.enter-btn:hover{
+    cursor: pointer;
+    color: blueviolet;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1, 1);
+        opacity: 0.25;
+    }
+    50% {
+        transform: scale(1.2, 1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1, 1);
+        opacity: 0.25;
+    }
+}
+
+.fade-in{
+    -webkit-animation: fade-in 1.2s both 0.95s;
+    -moz-animation: fade-in 1.2s both 0.95s;
+    -o-animation: fade-in 1.2s both 0.95s;
+    animation: fade-in 1.2s both 0.95s;
+}
+
+@-webkit-keyframes fade-in{
+    0%{
+        opacity: 0;
+  
+    }
+    100%{
+        opacity: 1;
+        
+    }
+}
+
+@-moz-keyframes fade-in{
+    0%{
+        opacity: 0;
+        
+    }
+    100%{
+        opacity: 1;
+        
+    }
+}
+
+@-o-keyframes fade-in{
+    0%{
+        opacity: 0;
+        
+    }
+    100%{
+        opacity: 1;
+        
+    }
+}
+
+@keyframes fade-in{
+    0%{
+        opacity: 0;
+        
+    }
+    100%{
+        opacity: 1;
+        
+    }
+}
+
+.fade-out{
+    -webkit-animation: fade-out 1.2s both 0.5s;
+    -moz-animation: fade-out 1.2s both 0.5s;
+    -o-animation: fade-out 1.2s both 0.5s;
+    animation: fade-out 1.2s both 0.5s;
+}
+
+@-webkit-keyframes fade-out{
+    0%{
+        opacity: 1;
+
+    }
+    100%{
+        opacity: 0;
+
+    }
+}
+
+@-moz-keyframes fade-out{
+    0%{
+        opacity: 1;
+
+    }
+    100%{
+        opacity: 0;
+
+    }
+}
+
+@-o-keyframes fade-out{
+    0%{
+        opacity: 1;
+
+    }
+    100%{
+        opacity: 0;
+
+    }
+}
+
+@keyframes fade-out{
+    0%{
+        opacity: 1;
+
+    }
+    100%{
+        opacity: 0;
+
+    }
+}
+
+/*
+Media queries
+*/
+
+@media(max-width: 992px){
+
+    .logo-desktop{
+        display: none;
+    }
+    .logo-mobile{
+        display: block;
+        height: 250px;
+        width: 250px;
+    }
+
+}
