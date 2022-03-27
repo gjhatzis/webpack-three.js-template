@@ -1,6 +1,9 @@
 import * as THREE from 'three'
+import Experience from '../Experience.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { BasisTextureLoader } from 'three/examples/jsm/loaders/BasisTextureLoader.js'
+import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
 import EventEmitter from "./EventEmitter";
 
 export default class Resources extends EventEmitter
@@ -10,6 +13,8 @@ export default class Resources extends EventEmitter
         super()
 
         //Options
+        this.experience = new Experience()
+        this.renderer = this.experience.renderer.instance
         this.sources = sources
 
         this.items = {}
@@ -40,6 +45,11 @@ export default class Resources extends EventEmitter
 
         //Cube Texture Loader
         this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader()
+
+        //Basis Texture Loader
+        this.loaders.basisTextureLoader = new KTX2Loader()
+        this.loaders.basisTextureLoader.setTranscoderPath('/basis/')
+        this.loaders.basisTextureLoader.detectSupport( this.renderer )
     }
 
     startLoading()
@@ -56,12 +66,24 @@ export default class Resources extends EventEmitter
                     }
                 )
             }
+            else if(source.type === 'basisTexture')
+            {
+                this.loaders.basisTextureLoader.load(
+                    source.path,
+                    (file) =>
+                    {
+                        file.encoding = THREE.sRGBEncoding
+                        this.sourceLoaded(source, file)
+                    }
+                )
+            }
             else if(source.type === 'texture')
             {
                 this.loaders.textureLoader.load(
                     source.path,
                     (file) =>
                     {
+                        file.encoding =  THREE.sRGBEncoding
                         this.sourceLoaded(source, file)
                     }
                 )

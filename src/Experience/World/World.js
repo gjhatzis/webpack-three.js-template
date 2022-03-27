@@ -1,6 +1,7 @@
 import Experience from "../Experience.js";
 import DjBooth from './DjBooth.js';
 import Environment from './Environment.js';
+import Plane from "./Plane.js";
 
 export default class World
 {
@@ -14,6 +15,7 @@ export default class World
         this.resources.on('ready',() =>
         {
             this.djBooth = new DjBooth()
+            this.plane = new Plane()
             this.environment = new Environment()
         })
 

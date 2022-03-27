@@ -11,16 +11,20 @@ export default class DjBooth
         this.resources = this.experience.resources
         this.time = this.experience.time
         this.debug = this.experience.debug
+        this.materials = this.experience.materials
 
-        this.setModel()
+        //Resource
+        this.resource = this.resources.items.test_model
+
+        this.parseModel()
+        this.setMaterial()
+
     }
 
-    setModel()
+    parseModel()
     {
-        //Manipulate Model
-        this.resource = this.resources.items.test_model
+        //Model
         this.model = this.resource.scene
-        this.model.scale.set(60, 60, 60)
 
         this.model.traverse((child) => 
         {
@@ -29,18 +33,11 @@ export default class DjBooth
                 child.castShadow = true
             }
         })
+
+        //Objects
+        this.poster1 = this.model.children[0].children[0].children[8]
+        console.log(this.model.children[0].children[0].children[8])
         
-        //Add texture
-        this.texture = {}
-        this.texture.color = this.resources.items.color_texture
-        this.texture.color.encoding = THREE.sRGBEncoding
-        this.texture.color.repeat.set(1.5, 1.5)
-        this.texture.color.wrapS = THREE.RepeatWrapping
-        this.texture.color.wrapT = THREE.RepeatWrapping
-
-        //Manipulate Material
-        this.model.children[0].children[0].material.side = THREE.DoubleSide
-
         //Debug
         if(this.debug.active)
         {
@@ -48,9 +45,17 @@ export default class DjBooth
             this.debugFolder.add(this.model.rotation,'y').min(-5).max(5).step(0.001)
         }
 
+    }
+
+    setMaterial()
+    {
+        this.resources.on('texturesMapped', ()=>
+        {
+            this.poster1.material = this.materials.poster1Material
+        })
+
         //Add model to the scene
         this.scene.add(this.model)
-        console.log(this.model)
     }
 
     update()

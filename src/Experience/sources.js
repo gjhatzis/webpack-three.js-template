@@ -4,7 +4,7 @@ export default [
     {
         name: 'test_model',
         type: 'gltfModel',
-        path: 'models/tiesto.glb'
+        path: 'models/talos_mats.glb'
     },
 
     //Textures
